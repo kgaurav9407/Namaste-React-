@@ -31,21 +31,55 @@
 }
 
 //convert it in to React script
-
-const parent = React.createElement("div", { id: "parent" }, [
-  React.createElement("div", { id: "child1" }, [
-    React.createElement("h1", {}, "I am an h1 tag in child1"),
-    React.createElement("h2", {}, "I am an h2 tag in child1"),
-  ]),
-  React.createElement("div", { id: "child2" }, [
-    React.createElement("h1", {}, "I am an h1 tag in child2"),
-    React.createElement("h2", {}, "I am an h2 tag in child2"),
-  ]),
-]);
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(parent);
+// import React from 'react';
+// import ReactDOM from 'react-dom/client';
+// const parent = React.createElement("div", { id: "parent" }, [
+//   React.createElement("div", { id: "child1",key:'1' }, [
+//     React.createElement("h1", {key:'2'}, "I am an h1 tag in child1"),
+//     React.createElement("h2", {key:'3'}, "I am an h2 tag in child1"),
+//   ]),
+//   React.createElement("div", { id: "child2",key:'4' }, [
+//     React.createElement("h1", {key:'5'}, "I am an h1 tag in child2"),
+//     React.createElement("h2", {key:'6'}, "I am an h2 tag in child2"),
+//   ]),
+// ]);
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(parent);
 
 // const heading = document.createElement('h1');
 // heading.innerHTML = 'Hello world from Javascript!';
 // const root = document.getElementById('root');
 // root.appendChild(heading);
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+const element = <span>React Element</span>;
+const value = 100;
+
+const apiData = `<script>alert("Hacked")</script>`;
+const Title = () => {
+  return (
+    <h1 className="head" tabIndex="5">
+      {HeadingComponent()}
+      <HeadingComponent />
+      {element}
+      {100 + 200}
+      {`This is value: ${value}`}
+      {/* {apiData} */}
+      <div dangerouslySetInnerHTML={{ __html: apiData }}></div>
+      Namaste React Using JSX
+    </h1>
+  );
+};
+
+//Component Composition: Putting components inside components, ex: Title inside HeadingComponent
+const HeadingComponent = () => {
+  return (
+    <div id="container">
+      <h1 className="heading">Namaste React Functional Component</h1>
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Title />);
