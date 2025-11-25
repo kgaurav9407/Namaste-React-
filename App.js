@@ -1,85 +1,110 @@
-{
-  /* <div id="parent">
-    <div id="child">
-        <h1>I am an h1 tag</h1>
-    </div>
-</div> */
-}
-
-// Convert it into React snippet
-
-// const parent = React.createElement("div", { id: "parent" }, React.createElement("div", { id: "child" }, React.createElement("h1", {}, "I am an h1 tag")));
-
-// const heading = React.createElement("h1", {
-//     "id": "heading", "xyz": "red", // whatever we mention here it will be added as attribute to h1 tag element
-// }, "Hello World from React!");
-
-// console.log(parent);
-// console.log(heading);   // THis will print react object not any DOM Node or element like h1, and this object will have props having children and attributes
-
-{
-  /* <div id="parent">
-    <div id="child1">
-        <h1>I am an h1 tag in child1</h1>
-        <h2>I am an h2 tag in child1</h2>
-    </div>
-    <div id="child2">
-        <h1>I am an h1 tag in child2</h1>
-        <h2>I am an h2 tag in child2</h2>
-    </div>
-</div> */
-}
-
-//convert it in to React script
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// const parent = React.createElement("div", { id: "parent" }, [
-//   React.createElement("div", { id: "child1",key:'1' }, [
-//     React.createElement("h1", {key:'2'}, "I am an h1 tag in child1"),
-//     React.createElement("h2", {key:'3'}, "I am an h2 tag in child1"),
-//   ]),
-//   React.createElement("div", { id: "child2",key:'4' }, [
-//     React.createElement("h1", {key:'5'}, "I am an h1 tag in child2"),
-//     React.createElement("h2", {key:'6'}, "I am an h2 tag in child2"),
-//   ]),
-// ]);
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(parent);
-
-// const heading = document.createElement('h1');
-// heading.innerHTML = 'Hello world from Javascript!';
-// const root = document.getElementById('root');
-// root.appendChild(heading);
-import React from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom/client";
-
-const element = <span>React Element</span>;
-const value = 100;
-
-const apiData = `<script>alert("Hacked")</script>`;
-const Title = () => {
+import RestaurantData from "./Restaurant.json";
+import { useState } from "react";
+const Header = () => {
   return (
-    <h1 className="head" tabIndex="5">
-      {HeadingComponent()}
-      <HeadingComponent />
-      {element}
-      {100 + 200}
-      {`This is value: ${value}`}
-      {/* {apiData} */}
-      <div dangerouslySetInnerHTML={{ __html: apiData }}></div>
-      Namaste React Using JSX
-    </h1>
-  );
-};
-
-//Component Composition: Putting components inside components, ex: Title inside HeadingComponent
-const HeadingComponent = () => {
-  return (
-    <div id="container">
-      <h1 className="heading">Namaste React Functional Component</h1>
+    <div className="header">
+      <div className="logo">
+        <img src="https://img.freepik.com/premium-vector/logo-design-restaurant-food-company_1253202-57700.jpg" />
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About Us</li>
+          <li>Contact Us</li>
+          <li>Cart</li>
+        </ul>
+      </div>
     </div>
   );
 };
+
+const RestaurantCard = ({ resData }) => {
+  const { name, cuisines, avgRating, sla, costForTwo } = resData.info;
+
+  return (
+    <div className="res-card">
+      <img
+        alt="res-logo"
+        className="res-logo"
+        src={
+          "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+          resData.info.cloudinaryImageId
+        }
+      />
+      <h3>{name}</h3>
+      <h5>{cuisines.join(", ")}</h5>
+      <h5>{avgRating} ⭐</h5>
+      <h5>{sla?.deliveryTime} mins</h5>
+      <h5>{costForTwo}</h5>
+    </div>
+  );
+};
+
+const Body = () => {
+  const restaurantList = RestaurantData.restaurants;
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="res-container">
+        {restaurantList.map((restaurant, index) => {
+          return <RestaurantCard key={index} resData={restaurant} />;
+        })}
+      </div>
+    </div>
+  );
+};
+
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Header />
+      <Body />
+    </div>
+  );
+};
+
+//Using index as key - not recommended
+export default function App() {
+  const [items, setItems] = useState([
+    { id: 1, value: "A" },
+    { id: 2, value: "B" },
+    { id: 3, value: "C" },
+  ]);
+
+  const addToStart = () => {
+    setItems([{ id: Date.now(), value: "X" }, ...items]);
+  };
+
+  return (
+    <div>
+      <button onClick={addToStart}>Add X at Start</button>
+
+      {items.map((item, index) => (
+        <Item key={index} item={item} />
+      ))}
+    </div>
+  );
+}
+
+function Item({ item }) {
+  const [text, setText] = useState("");
+
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <span>{item.value}: </span>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ width: 100 }}
+      />
+    </div>
+  );
+}
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(<App />);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Title />);
+root.render(<AppLayout />);

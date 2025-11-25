@@ -1,3 +1,46 @@
-#child1{
-    color:aqua;
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+.logo > img{
+    width:100px;
+}
+.nav-items{
+    padding: 0px 20px;
+}
+.nav-items > ul{
+    font-size: 24px;
+    display: flex;
+    list-style-type:none;
+}
+.nav-items > ul >li{
+    padding: 10px;
+    margin: 10px;
+}
+.res-container{
+    display: flex;
+    gap:20px;
+    flex-wrap: wrap;
+    /* padding:20px; */
+}
+.res-card{
+    padding:5px;
+    width:200px;
+    margin:5px;
+    /* height:300px; */
+    border:1px solid black;
+}
+.res-card:hover{
+    box-shadow: 5px 5px 10px grey;
+    cursor: pointer;
+}
+.search{
+    padding:10px;
+}
+.res-logo{
+    width:100%;
+    height: 100px;
+    object-fit: cover;
 }
