@@ -44,3 +44,32 @@
     height: 100px;
     object-fit: cover;
 }
+.filter-btn{
+    margin:10px;
+}
+.shimmer-filter-btn{
+    margin:10px;
+    width:160px;
+    height:20px;
+}
+.shimmer-container{
+    display:flex;
+    gap:20px;
+    flex-wrap: wrap;
+}
+.shimmer-card{
+    width:200px;
+    padding: 5px;
+    margin:5px;
+    height:300px;
+    background-color: #f0f0f0;
+}
+.login-btn{
+    padding:0 20px;
+    font-size: 18px;
+}
+
+.filter{
+    display: flex;
+    justify-content: space-between;
+}
